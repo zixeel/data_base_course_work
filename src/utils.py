@@ -88,7 +88,8 @@ def get_data(employers_list: list):
 def create_database(params: dict, db_name: str) -> None:
     """Создает новую базу данных."""
     try:
-        conn = psycopg2.connect(database='postgres', **params)
+        print(params)
+        conn = psycopg2.connect(**params)
         conn.autocommit = True
         cur = conn.cursor()
         # Удаляем существующие подключения к базе
@@ -105,8 +106,6 @@ def create_database(params: dict, db_name: str) -> None:
         cur.execute("CREATE DATABASE " + db_name)
         cur.close()
         conn.close()
-    except psycopg2.errors.Error as e:
-        raise e
 
     connect = psycopg2.connect(database=db_name, **params)
     try:
